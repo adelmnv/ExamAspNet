@@ -1,0 +1,63 @@
+﻿@model ExamAspNet.Models.Coach
+@using ExamAspNet.Helpers
+
+@{
+    ViewBag.Title = "CoachDetails";
+}
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" aria-hidden="true">X</button>
+        <h2>Coach Details</h2>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <div style="text-align:center">
+                @ImageHelper.Image(Html, $"{Model.Img}", $"{Model.Name}")
+            </div>
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Sport)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Sport)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Age)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Age)
+            </dd>
+            <dt>
+                Activities
+            </dt>
+            <dd>
+                <ul>
+                    @foreach (ExamAspNet.Models.FitProgram c in ViewBag.FitPrograms)
+                    {
+                        <li>@Html.ActionLink($"{@c.Title}", "FitProgramDetails", new { id = c.Id })</li>
+                    }
+                </ul>
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<style>
+    .myImg {
+        width: 550px;
+        max-width:100%;
+        max-height: 430px;
+        padding: 10px;
+    }
+</style>

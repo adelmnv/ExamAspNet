@@ -1,0 +1,18 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Welcome!</h2>
+@if (ViewBag.Msg != "")
+{
+    <h4 style="background-color:red; color:white; font-weight:bold; text-align:center; padding:2px">@ViewBag.Msg</h4>
+}
+
+
+<div>@Html.ActionLink("Sign Up", "SignUp") if you don't have an account</div>
+<div>@Html.ActionLink("Log In", "LogIn") if you already have an account</div>
+
+
+

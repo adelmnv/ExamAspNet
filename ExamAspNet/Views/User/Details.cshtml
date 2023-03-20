@@ -1,0 +1,118 @@
+﻿@model ExamAspNet.Models.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<div id="modDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <div style="padding-bottom:5px">
+            <img name ="pic" class="img-circle myimg" src=@Model.ImageUrl onError="this.src='https://static.thenounproject.com/png/4912996-200.png'"/>
+        </div>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CardType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CardType)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Number of Classes allowed by your card")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassesNum)
+        </dd>
+        <dt>
+            FitPrograms - @ViewBag.Practices.Count
+        </dt>
+        <dd>
+            @foreach (var practice in ViewBag.Practices)
+            {
+                <ul>
+                    <a href="/Gym/FitProgramDetails/@practice.FitProgram.Id">@practice.FitProgram.Title</a>
+                    <br />
+                    <li>Coach - @practice.Coach.Name</li>
+                    <li>Time: @practice.StartTime - @practice.EndTime</li>
+                    <li>
+                        Days:
+                        <ul>
+                            @foreach (var d in practice.DayOfWeeks)
+                            {
+                                <li>@d.DayOfWeek</li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+            }
+        </dd>
+        <dt>
+            @Html.DisplayName("Number of FitPrograms in the request")
+        </dt>
+        <dd>
+            @ViewBag.Applications
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" }) |
+    @Html.ActionLink("My Messages", "History", new { id = Model.Id }, new { @class = "messageItem btn btn-primary" }) |
+    <a href="/Gym/FitProgramIndex" class="btn btn-default">Back to FitProgramList</a>
+</p>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $.ajaxSetup({ cashe: false });
+            $(".messageItem").click(function (e) {
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+    </script>
+}
+
+<style>
+    .myimg{
+        max-width:200px;
+    }
+</style>

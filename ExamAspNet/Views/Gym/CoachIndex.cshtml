@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ExamAspNet.Models.Coach>
+
+@{
+    ViewBag.Title = "CoachIndex";
+}
+
+
+<h2>Our Coaches</h2>
+<div id="modDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Sport)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sport)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "CoachDetails", new { id = item.Id }, new { @class = "coachItem btn btn-primary" })
+            </td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Back to FitProgram List", "FitProgramIndex", new { }, new { @class = "btn btn-default" })
+</p>
+<div>@Html.ActionLink("Main Page", "Index", new { UserId = Session["id"] }, new { @class = "btn btn-default" })</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $.ajaxSetup({ cashe: false });
+            $(".coachItem").click(function (e) {
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+    </script>
+}
+
+

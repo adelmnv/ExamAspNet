@@ -1,0 +1,75 @@
+﻿@model ExamAspNet.Models.FitProgram
+
+@{
+    ViewBag.Title = "FitProgramJoin";
+}
+
+<h2>FitProgram Join</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @if (ViewBag.Message != "" && ViewBag.Message != null)
+    {
+        <h4 style="background-color:red; color:white; font-weight:bold; text-align:center; padding:2px">@ViewBag.Message</h4>
+    }
+    <h4>Information</h4>
+    <hr />
+    <input type="hidden" name="UserId" value="@ViewBag.User.Id" />
+    <dt>
+        @Html.DisplayName("User Name")
+    </dt>
+
+    <dd>
+        @ViewBag.User.Name
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Title)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Title)
+    </dd>
+    <dt>
+        @Html.DisplayName("Options")
+    </dt>
+    <dd>
+        @foreach (var practice in ViewBag.Practices)
+        {
+            <ul>
+                <input type="checkbox" name="selectedPractices" value="@practice.Id" />
+                Practice N @practice.Id
+                <br />
+                <li>Coach - @practice.Coach.Name</li>
+                <li>Time: @practice.StartTime - @practice.EndTime</li>
+                <li>
+                    Days:
+                    <ul>
+                        @foreach (var d in practice.DayOfWeeks)
+                        {
+                            <li>@d.DayOfWeek</li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+        }
+    </dd>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Join" class="btn btn-success" />
+        </div>
+    </div>
+    <div style="font-size:smaller">
+        <p>*You can sign up for different workouts, but each one will be counted as a separate activity</p>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to FitProgram List", "FitProgramIndex", new { }, new { @class = "btn btn-default" })
+</div>
+

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ExamAspNet.Models.Message>
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" aria-hidden="true">X</button>
+        <h2>History</h2>
+    </div>
+    <div class="modal-body">
+        @foreach(var mes in Model)
+            {
+            <div class="message">
+                <div class="at">
+                    From: @ViewBag.Coach
+                </div>
+                <div class="at">
+                    To: @ViewBag.User.Name
+                </div>
+                <div class="text">
+                    @mes.Text
+                </div>
+            </div>
+            }
+    </div>
+</div>
+
+<style>
+    .message{
+        padding:10px;
+        background-color: #bfe3fe;
+        border:0.5px solid #258cd9;
+        margin-bottom: 5px;
+    }
+
+    .at{
+        text-align:left;
+        font-weight:bold;
+    }
+
+    .text {
+        padding: 10px;
+        background-color: #ffffff;
+        border: 0.5px solid #ffffff;
+    }
+
+</style>

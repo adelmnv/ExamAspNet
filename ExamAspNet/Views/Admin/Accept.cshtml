@@ -1,0 +1,55 @@
+﻿@model ExamAspNet.Models.Application
+
+@{
+    ViewBag.Title = "Accept";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Accept</h2>
+
+<div>
+    <h4>Application</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PracticeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PracticeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PracticeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PracticeName)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Accept" class="btn btn-success" /> |
+            @Html.ActionLink("Back to List", "Index", new { AdminId = Session["id"] })
+        </div>
+    }
+</div>

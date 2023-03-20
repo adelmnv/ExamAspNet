@@ -1,0 +1,11 @@
+﻿@if (Session["id"] == null)
+{
+    <li>@Html.ActionLink("Log In", "LogIn", "User")</li>
+    <li>@Html.ActionLink("Sign Up", "SignUp", "User")</li>
+}
+else
+{
+<li>@Html.ActionLink($"Hello {Session["name"]}", $"Details/{Session["id"]}", "User")</li>
+<li>@Html.ActionLink("Exit", "Index", "Gym")</li>
+}
+

@@ -1,0 +1,98 @@
+﻿@using ExamAspNet.Helpers
+@model ExamAspNet.Models.FitProgram
+
+@{
+    ViewBag.Title = "FitProgramDetails";
+}
+
+<h2>FitProgram Details</h2>
+<div id="modDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
+<div>
+    <h4>FitProgram</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration) hour(s)
+        </dd>
+        <dt>
+            Coaches
+        </dt>
+        <dd>
+            <ul>
+                @foreach (ExamAspNet.Models.Coach c in ViewBag.Coaches)
+                {
+                    <li>@Html.ActionLink($"{c.Name}", "CoachDetails", new { id = c.Id }, new { @class = "coachItem" })</li>
+                }
+            </ul>
+        </dd>
+        <dt>
+            Schedule
+        </dt>
+        <dd>
+            <ul>
+                @foreach (ExamAspNet.Models.Day day in ViewBag.Days)
+                {
+                    <li>@day.DayOfWeek</li>
+                }
+            </ul>
+
+        </dd>
+    </dl>
+</div>
+<div style="text-align:center">
+    <img alt="gym" src="@ViewBag.Picture" class="myImg2" />
+
+</div>
+<p>
+    @Html.ActionLink("Back to FitProgram List", "FitProgramIndex", new { }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Join", "FitProgramJoin", new { id = Model.Id }, new { @class = "btn btn-success" })
+</p>
+
+<style>
+    .myImg2 {
+        width: 800px;
+        max-width:100%;
+        max-height: 600px;
+        padding: 10px;
+        border-radius: 10%;
+    }
+</style>
+
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $.ajaxSetup({ cashe: false });
+            $(".coachItem").click(function (e) {
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+    </script>
+}

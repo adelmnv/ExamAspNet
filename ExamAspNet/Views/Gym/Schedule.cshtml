@@ -1,0 +1,79 @@
+﻿@model IEnumerable<ExamAspNet.Models.Practice>
+
+@{
+    ViewBag.Title = "Schedule";
+}
+
+<h2>Schedule</h2>
+<div class="grid-container" style="width:auto">
+    <div>Time</div>
+    @foreach (var day in ViewBag.Days)
+    {
+        if (day.DayOfWeek == DayOfWeek.Sunday)
+        {
+                    <div style="order:1;">@day.DayOfWeek</div>
+        }
+        else { 
+<div>@day.DayOfWeek</div>
+        }
+        
+    }
+</div>
+<div class="grid-container2">
+    @for (int i = 7; i < 22; i++)
+    {
+        <div>@i:00</div>
+    }
+    @foreach (var item in Model)
+    {
+        string x = item.StartTime.Substring(0, 2);
+        int s = int.Parse(x) - 6;
+        int e = Convert.ToInt32(item.FitProgram.Duration);
+        foreach (var d in item.DayOfWeeks)
+        {
+            int day = Convert.ToInt32(d.DayOfWeek) + 1;
+            if(d.DayOfWeek == DayOfWeek.Sunday)
+            {
+                day += 7;
+            }
+            <div style="grid-row-start:@s; grid-column-start:@day">@Html.ActionLink(item.FitProgram.Title, "FitProgramDetails", new {id = item.FitProgram.Id })</div>
+        }
+    }
+</div>
+
+
+<style>
+    .grid-container {
+        min-width: 900px;
+        display: grid;
+        grid-template-columns: repeat(8,11.7%);
+        gap: 9px;
+        background-color: #8ba6c1;
+        padding: 10px;
+    }
+
+        .grid-container > div {
+            background-color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 18px;
+        }
+
+    .grid-container2 {
+        min-width:900px;
+        display: grid;
+        grid-template-columns: repeat(8,11.7%);
+        grid-template-rows: repeat(15,auto);
+        grid-auto-flow: column;
+        gap: 9px;
+        background-color: #8ba6c1;
+        padding: 10px;
+    }
+
+        .grid-container2 > div {
+            background-color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 18px;
+        }
+</style>
